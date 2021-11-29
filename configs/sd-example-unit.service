@@ -1,0 +1,11 @@
+[Unit]
+Description=PWRStat util
+
+[Service]
+ExecStart={{ Path_to_bin }}
+Type=simple
+User={{ username }}
+Group={{ group }}
+
+[Install]
+WantedBy=multi-user.target

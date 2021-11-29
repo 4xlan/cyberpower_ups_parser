@@ -1,0 +1,90 @@
+### Server
+ip: ""
+port: ""
+
+### List of values
+### >>
+### Not so smart, but more flexible solution just in case of any utility updates or
+### possible specific requirements (e.g. shorter description)
+### >>
+### "name" field is case-insensitive
+cp_response:
+  - name: "ModelName"
+    prettyName: "Model name"
+    isShown: true
+    isStatic: true
+  - name: "FirmwareNumber"
+    prettyName: "Firmware number"
+    isShown: true
+    isStatic: true
+  - name: "RatingVoltage"
+    prettyName: "Rating voltage"
+    isShown: true
+    isStatic: true
+  - name: "RatingPower"
+    prettyName: "Rating power"
+    isShown: true
+    isStatic: true
+  - name: "State"
+    prettyName: "State"
+    isShown: true
+    isStatic: false
+  - name: "PowerSupplyby"
+    prettyName: "Power supply by"
+    isShown: true
+    isStatic: false
+  - name: "UtilityVoltage"
+    prettyName: "Utility voltage"
+    isShown: true
+    isStatic: false
+  - name: "OutputVoltage"
+    prettyName: "Output voltage"
+    isShown: true
+    isStatic: false
+  - name: "BatteryCapacity"
+    prettyName: "Battery capacity"
+    isShown: true
+    isStatic: false
+  - name: "RemainingRuntime"
+    prettyName: "Remaining runtime"
+    isShown: true
+    isStatic: false
+  - name: "Load"
+    prettyName: "Load"
+    isShown: true
+    isStatic: false
+  - name: "LineInteraction"
+    prettyName: "Line interaction"
+    isShown: true
+    isStatic: false
+  - name: "TestResult"
+    prettyName: "Test result"
+    isShown: true
+    isStatic: false
+  - name: "LastPowerEvent"
+    prettyName: "Last power event"
+    isShown: true
+    isStatic: false
+### end of the list of values
+
+### Next attributes are dummy for now
+
+### Params
+check_freq_when_failed: 5 # Seconds
+check_freq_when_normal: 10 # Seconds
+remaining_runtime_limit_warn: 10 # Minutes
+remaining_runtime_limit_crit: 5 # Minutes
+
+### Notification
+notify_when_warning: true
+notify_when_crit: true
+
+notification_warn_command: ""
+notification_crit_command: ""
+
+### Execution
+execute_when_warning: true
+execute_when_crit: true
+
+execute_warn_command: ""
+execute_crit_command: ""
