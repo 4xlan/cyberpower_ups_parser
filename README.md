@@ -13,5 +13,5 @@ You should have:
 
 ## Configuring
 
-Just set up port (and IP, optionally). 
+Just set up port (and IP, optionally) in config in place it with name `config.yaml` in `config` directory near bin file. 
 
