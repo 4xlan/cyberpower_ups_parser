@@ -62,8 +62,8 @@ func parseOutput(output *[]string, state *map[string]string) error {
 			key := convertKey(parsedString[0])
 			index := isKeyExists(key)
 
-			if index != -1 { // TODO: Add buffer for non-parsed values
-				if config.UPSResponse[index].IsShown { // TODO: Add forced output through special parameter
+			if index != -1 {
+				if config.UPSResponse[index].IsShown {
 					(*state)[config.UPSResponse[index].PrettyName] = strings.TrimSpace(parsedString[1])
 				}
 			}

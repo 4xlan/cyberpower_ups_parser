@@ -5,26 +5,23 @@ type UPSConfigSvc interface {
 }
 
 type UPSConfig struct {
-	ChFreqFail    int              `yaml:"check_freq_when_failed"`
-	ChFreqNorm    int              `yaml:"check_freq_when_normal"`
-	RemRunLimWarn int              `yaml:"remaining_runtime_limit_warn"`
-	RemRunLinCrit int              `yaml:"remaining_runtime_limit_crit"`
-	NotifWhenWarn bool             `yaml:"notify_when_warning"`
-	NotifWhenCrit bool             `yaml:"notify_when_crit"`
-	NotifWarnComm string           `yaml:"notification_warn_command"`
-	NotifCritComm string           `yaml:"notification_crit_command"`
-	ExecWarn      bool             `yaml:"execute_when_warning"`
-	ExecCrit      bool             `yaml:"execute_when_crit"`
-	ExecWarnComm  string           `yaml:"execute_warn_command"`
-	ExecCritComm  string           `yaml:"execute_crit_command"`
-	ServerIP      string           `yaml:"ip"`
-	ServerPort    string           `yaml:"port"`
-	UPSResponse   []UPSResponseMap `yaml:"cp_response"`
+	Mode        bool             `yaml:"read_only"`
+	ChFreqBatt  int              `yaml:"check_freq_when_on_batt"`
+	ChFreqLine  int              `yaml:"check_freq_when_on_line"`
+	ServerIP    string           `yaml:"ip"`
+	ServerPort  string           `yaml:"port"`
+	UPSResponse []UPSResponseMap `yaml:"cp_response"`
+	ActionsList []Action         `yaml:"actions_list"`
 }
 
 type UPSResponseMap struct {
 	Name       string `yaml:"name"`
 	PrettyName string `yaml:"prettyName"`
 	IsShown    bool   `yaml:"isShown"`
-	IsStatic   bool   `yaml:"isStatic"`
+}
+
+type Action struct {
+	Name        string `yaml:"name"`
+	ExecCommand string `yaml:"exec"`
+	PowerLevel  int    `yaml:"on"`
 }

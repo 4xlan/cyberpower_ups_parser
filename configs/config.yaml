@@ -1,90 +1,69 @@
-### Server
-ip: ""
-port: ""
+# Work mode for util
+## when it's in read_only mode - it just can show current state in HTML according to cp_response settings
+## when it isn't in read_only - it also will perform all actions related to alerts
+read_only: false
 
-### List of values
-### >>
-### Not so smart, but more flexible solution just in case of any utility updates or
-### possible specific requirements (e.g. shorter description)
-### >>
-### "name" field is case-insensitive
+### Params checking rate
+check_freq_when_on_batt: 5 # Seconds
+check_freq_when_on_line: 10 # Seconds
+
+# List of values
+## Not so smart, but more flexible solution just in case of any utility updates or
+## possible specific requirements (e.g. shorter description)
+##
+## "name" field is case-insensitive
 cp_response:
-  - name: "ModelName"
+  - name: "modelname"
     prettyName: "Model name"
     isShown: true
-    isStatic: true
-  - name: "FirmwareNumber"
+  - name: "firmwarenumber"
     prettyName: "Firmware number"
     isShown: true
-    isStatic: true
-  - name: "RatingVoltage"
+  - name: "ratingvoltage"
     prettyName: "Rating voltage"
     isShown: true
-    isStatic: true
-  - name: "RatingPower"
+  - name: "ratingpower"
     prettyName: "Rating power"
     isShown: true
-    isStatic: true
-  - name: "State"
+  - name: "state"
     prettyName: "State"
     isShown: true
-    isStatic: false
-  - name: "PowerSupplyby"
+  - name: "powersupplyby"
     prettyName: "Power supply by"
     isShown: true
-    isStatic: false
-  - name: "UtilityVoltage"
+  - name: "utilityvoltage"
     prettyName: "Utility voltage"
     isShown: true
-    isStatic: false
-  - name: "OutputVoltage"
+  - name: "outputvoltage"
     prettyName: "Output voltage"
     isShown: true
-    isStatic: false
-  - name: "BatteryCapacity"
+  - name: "batterycapacity"
     prettyName: "Battery capacity"
     isShown: true
-    isStatic: false
-  - name: "RemainingRuntime"
+  - name: "remainingruntime"
     prettyName: "Remaining runtime"
     isShown: true
-    isStatic: false
-  - name: "Load"
+  - name: "load"
     prettyName: "Load"
     isShown: true
-    isStatic: false
-  - name: "LineInteraction"
+  - name: "lineinteraction"
     prettyName: "Line interaction"
     isShown: true
-    isStatic: false
-  - name: "TestResult"
+  - name: "testresult"
     prettyName: "Test result"
     isShown: true
-    isStatic: false
-  - name: "LastPowerEvent"
+  - name: "lastpowerevent"
     prettyName: "Last power event"
     isShown: true
-    isStatic: false
 ### end of the list of values
 
-### Next attributes are dummy for now
-
-### Params
-check_freq_when_failed: 5 # Seconds
-check_freq_when_normal: 10 # Seconds
-remaining_runtime_limit_warn: 10 # Minutes
-remaining_runtime_limit_crit: 5 # Minutes
-
-### Notification
-notify_when_warning: true
-notify_when_crit: true
-
-notification_warn_command: ""
-notification_crit_command: ""
-
-### Execution
-execute_when_warning: true
-execute_when_crit: true
-
-execute_warn_command: ""
-execute_crit_command: ""
+# Actions (only for read_only: false)
+##
+##
+actions_list:
+  - name: "Send an alert"
+    on: 30
+    exec: ""
+  - name: "Shutdown host"
+    on: 15
+    exec: ""
