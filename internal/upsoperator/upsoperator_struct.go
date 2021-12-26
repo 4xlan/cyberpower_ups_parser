@@ -3,13 +3,16 @@ package upsoperator
 import (
 	"cyberpower_service/internal/cpwrsvc_cfg"
 	"sync"
+	"time"
 )
 
 // Here we just keep parsed text and change it only through channel
 
 const (
-	command = "pwrstat"
-	arg1    = "-status"
+	command         = "pwrstat"
+	arg1            = "-status"
+	onSitePower     = "Utility Power"
+	checkPowerField = "powersupplyby"
 )
 
 //type CyberPowerResponse struct {
@@ -29,15 +32,18 @@ const (
 //	LastPowerEvent   string
 //}
 
-type Freq struct {
-	freq    int
-	freqMtx sync.Mutex
-}
-
 type UPSState struct {
-	currentState map[string]string
-	freqVal      Freq
+	date         time.Time
+	currentState map[string]UPSCurrent
+	freq         int
+	freqMtx      sync.Mutex
 	config       *cpwrsvc_cfg.UPSConfig
 	wg           *sync.WaitGroup
-	dataChan     chan map[string]string
+	dataChan     chan map[string]UPSCurrent
+	lastState    string
+}
+
+type UPSCurrent struct {
+	Pretty string
+	Value  string
 }

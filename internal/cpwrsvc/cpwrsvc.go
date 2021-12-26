@@ -31,19 +31,11 @@ func StartHttpServer() {
 	log.Println(fmt.Sprintf("Server was started on %s:%s", config.ServerIP, config.ServerPort))
 
 	http.HandleFunc("/getState", func(w http.ResponseWriter, r *http.Request) {
+		showCurrentState(&w)
+	})
 
-		state := upsState.GetState()
-
-		if state == nil {
-			fmt.Fprintf(w, "No data.")
-		} else {
-			for key, value := range *state {
-				_, err := fmt.Fprintf(w, "%v: %v\n", key, value)
-				if err != nil {
-					log.Println(err)
-				}
-			}
-		}
+	http.HandleFunc("/runningConf", func(w http.ResponseWriter, r *http.Request) {
+		showRunningConf(&w)
 	})
 
 	go func() {
@@ -52,4 +44,34 @@ func StartHttpServer() {
 			log.Fatalf("error during websrv execution: %v", err)
 		}
 	}()
+}
+
+func showCurrentState(w *http.ResponseWriter) {
+	state := upsState.GetState()
+
+	_, err := fmt.Fprintf(*w, "Last capture: %v\n", upsState.GetDate())
+	if err != nil {
+		log.Println(err)
+	}
+
+	if state == nil {
+		_, err := fmt.Fprintf(*w, "No data.")
+		if err != nil {
+			log.Println(err)
+		}
+	} else {
+		for _, value := range *state {
+			_, err := fmt.Fprintf(*w, "%v: %v\n", value.Pretty, value.Value)
+			if err != nil {
+				log.Println(err)
+			}
+		}
+	}
+}
+
+func showRunningConf(w *http.ResponseWriter) {
+	_, err := fmt.Fprintf(*w, "%v", upsState.GetFreq())
+	if err != nil {
+		log.Println(err)
+	}
 }
