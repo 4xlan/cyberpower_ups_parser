@@ -32,6 +32,7 @@ func (ups *UPSState) GetState() *map[string]string {
 
 func (ups *UPSState) Listen() {
 	defer ups.wg.Done()
+
 }
 
 func (ups *UPSState) getInfo() error {

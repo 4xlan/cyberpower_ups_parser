@@ -34,10 +34,14 @@ func StartHttpServer() {
 
 		state := upsState.GetState()
 
-		for key, value := range *state {
-			_, err := fmt.Fprintf(w, "%v = %v\n", key, value)
-			if err != nil {
-				log.Println(err)
+		if state == nil {
+			fmt.Fprintf(w, "No data.")
+		} else {
+			for key, value := range *state {
+				_, err := fmt.Fprintf(w, "%v = %v\n", key, value)
+				if err != nil {
+					log.Println(err)
+				}
 			}
 		}
 
