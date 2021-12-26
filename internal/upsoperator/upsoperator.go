@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"strings"
 	"sync"
+	"time"
 	"unicode"
 )
 
@@ -22,20 +23,45 @@ func (f *Freq) GetFreq() int {
 func (ups *UPSState) Init(cfg *cpwrsvc_cfg.UPSConfig, wg *sync.WaitGroup) error {
 	ups.config = cfg
 	ups.wg = wg
+	ups.dataChan = make(chan map[string]string, 1)
 
 	return nil
 }
 
 func (ups *UPSState) GetState() *map[string]string {
-	return ups.currentState
+	return &ups.currentState
 }
 
 func (ups *UPSState) Listen() {
 	defer ups.wg.Done()
 
+	for {
+		ups.currentState = <-ups.dataChan
+		time.Sleep(time.Duration(ups.freqVal.freq/2) * time.Second)
+	}
+
 }
 
-func (ups *UPSState) getInfo() error {
+func (ups *UPSState) Read() error {
+	defer ups.wg.Done()
+
+	for {
+
+		tmp := map[string]string{}
+
+		err := ups.getInfo(&tmp)
+		if err != nil {
+			return err
+		}
+
+		ups.dataChan <- tmp
+		time.Sleep(time.Duration(ups.freqVal.freq) * time.Second)
+	}
+
+	return nil
+}
+
+func (ups *UPSState) getInfo(tmp *map[string]string) error {
 
 	cmd := exec.Command(command, arg1)
 	resp, err := cmd.Output()
@@ -46,7 +72,7 @@ func (ups *UPSState) getInfo() error {
 
 	convertedResp := strings.Split(string(resp), "\n")
 
-	err = ups.parseOutput(&convertedResp, ups.currentState)
+	err = ups.parseOutput(&convertedResp, tmp)
 	if err != nil {
 		return err
 	}
@@ -54,7 +80,7 @@ func (ups *UPSState) getInfo() error {
 	return nil
 }
 
-func (ups *UPSState) parseOutput(output *[]string, state *map[string]string) error {
+func (ups *UPSState) parseOutput(output *[]string, tmp *map[string]string) error {
 
 	for _, line := range *output {
 		parsedString := strings.FieldsFunc(line, func(r rune) bool {
@@ -69,9 +95,7 @@ func (ups *UPSState) parseOutput(output *[]string, state *map[string]string) err
 			index := ups.isKeyExists(key)
 
 			if index != -1 {
-				if ups.config.UPSResponse[index].IsShown {
-					(*state)[ups.config.UPSResponse[index].PrettyName] = strings.TrimSpace(parsedString[1])
-				}
+				(*tmp)[ups.config.UPSResponse[index].PrettyName] = strings.TrimSpace(parsedString[1])
 			}
 		}
 	}

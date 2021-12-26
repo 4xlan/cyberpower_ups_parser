@@ -12,22 +12,22 @@ const (
 	arg1    = "-status"
 )
 
-type CyberPowerResponse struct {
-	ModelName        string
-	FirmwareNumber   string
-	RatingVoltage    string
-	RatingPower      string
-	State            string
-	PowerSupplyby    string // don't change it, until utility output is parsing into this structure
-	UtilityVoltage   string
-	OutputVoltage    string
-	BatteryCapacity  string
-	RemainingRuntime string
-	Load             string
-	LineInteraction  string
-	TestResult       string
-	LastPowerEvent   string
-}
+//type CyberPowerResponse struct {
+//	ModelName        string
+//	FirmwareNumber   string
+//	RatingVoltage    string
+//	RatingPower      string
+//	State            string
+//	PowerSupplyby    string // don't change it, until utility output is parsing into this structure
+//	UtilityVoltage   string
+//	OutputVoltage    string
+//	BatteryCapacity  string
+//	RemainingRuntime string
+//	Load             string
+//	LineInteraction  string
+//	TestResult       string
+//	LastPowerEvent   string
+//}
 
 type Freq struct {
 	freq    int
@@ -35,8 +35,9 @@ type Freq struct {
 }
 
 type UPSState struct {
-	currentState *map[string]string
+	currentState map[string]string
 	freqVal      Freq
 	config       *cpwrsvc_cfg.UPSConfig
 	wg           *sync.WaitGroup
+	dataChan     chan map[string]string
 }

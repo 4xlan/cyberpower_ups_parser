@@ -27,6 +27,12 @@ func main() {
 		log.Fatal(err)
 	}
 
+	wg.Add(1)
+	go ups.Read()
+
+	wg.Add(1)
+	go ups.Listen()
+
 	err = cpwrsvc.Init(&globalConfig, wg, &ups)
 	if err != nil {
 		log.Fatal(err)

@@ -38,13 +38,12 @@ func StartHttpServer() {
 			fmt.Fprintf(w, "No data.")
 		} else {
 			for key, value := range *state {
-				_, err := fmt.Fprintf(w, "%v = %v\n", key, value)
+				_, err := fmt.Fprintf(w, "%v: %v\n", key, value)
 				if err != nil {
 					log.Println(err)
 				}
 			}
 		}
-
 	})
 
 	go func() {

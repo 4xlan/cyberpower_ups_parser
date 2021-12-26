@@ -25,7 +25,6 @@ type UPSConfig struct {
 type UPSResponseMap struct {
 	Name       string `yaml:"name"`
 	PrettyName string `yaml:"prettyName"`
-	IsShown    bool   `yaml:"isShown"`
 }
 
 type Action struct {

@@ -19,46 +19,32 @@ port: ""
 cp_response:
   - name: "modelname"
     prettyName: "Model name"
-    isShown: true
   - name: "firmwarenumber"
     prettyName: "Firmware number"
-    isShown: true
   - name: "ratingvoltage"
     prettyName: "Rating voltage"
-    isShown: true
   - name: "ratingpower"
     prettyName: "Rating power"
-    isShown: true
   - name: "state"
     prettyName: "State"
-    isShown: true
   - name: "powersupplyby"
     prettyName: "Power supply by"
-    isShown: true
   - name: "utilityvoltage"
     prettyName: "Utility voltage"
-    isShown: true
   - name: "outputvoltage"
     prettyName: "Output voltage"
-    isShown: true
   - name: "batterycapacity"
     prettyName: "Battery capacity"
-    isShown: true
   - name: "remainingruntime"
     prettyName: "Remaining runtime"
-    isShown: true
   - name: "load"
     prettyName: "Load"
-    isShown: true
   - name: "lineinteraction"
     prettyName: "Line interaction"
-    isShown: true
   - name: "testresult"
     prettyName: "Test result"
-    isShown: true
   - name: "lastpowerevent"
     prettyName: "Last power event"
-    isShown: true
 ### end of the list of values
 
 # Actions (only for read_only: false)
