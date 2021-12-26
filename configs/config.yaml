@@ -7,6 +7,10 @@ read_only: false
 check_freq_when_on_batt: 5 # Seconds
 check_freq_when_on_line: 10 # Seconds
 
+# Server
+ip: ""
+port: ""
+
 # List of values
 ## Not so smart, but more flexible solution just in case of any utility updates or
 ## possible specific requirements (e.g. shorter description)
