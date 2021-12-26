@@ -2,6 +2,7 @@ package upsoperator
 
 import (
 	"cyberpower_service/internal/cpwrsvc_cfg"
+	"fmt"
 	"log"
 	"os/exec"
 	"strings"
@@ -25,6 +26,10 @@ func (ups *UPSState) GetDate() string {
 	return ups.date.Format("2006.01.02 15:04:05")
 }
 
+func (ups *UPSState) GetMaxOrder() int {
+	return ups.maxOrder
+}
+
 func (ups *UPSState) Init(cfg *cpwrsvc_cfg.UPSConfig, wg *sync.WaitGroup) error {
 	ups.config = cfg
 	ups.wg = wg
@@ -35,6 +40,9 @@ func (ups *UPSState) Init(cfg *cpwrsvc_cfg.UPSConfig, wg *sync.WaitGroup) error 
 	if err != nil {
 		return err
 	}
+
+	ups.findMaxOrder()
+	fmt.Println(ups.maxOrder)
 
 	ups.currentState = tmp
 	ups.checkCurrentState()
@@ -161,8 +169,15 @@ func (ups *UPSState) setActualFreq() {
 	log.Printf("Frequency of state read has been changed to: %v\n", ups.freq)
 }
 
-func (ups *UPSState) getConfig() {
-	return
+func (ups *UPSState) findMaxOrder() {
+	ups.maxOrder = 0
+
+	for _, value := range ups.currentState {
+		if ups.maxOrder < value.Order {
+			ups.maxOrder = value.Order
+		}
+	}
+
 }
 
 func convertKey(key string) string {

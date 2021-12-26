@@ -60,11 +60,10 @@ func showCurrentState(w *http.ResponseWriter) {
 			log.Println(err)
 		}
 	} else {
-		for _, value := range *state {
-			_, err := fmt.Fprintf(*w, "%v: %v\n", value.Pretty, value.Value)
-			if err != nil {
-				log.Println(err)
-			}
+		out := sortOutput(state, upsState.GetMaxOrder())
+		_, err := fmt.Fprintf(*w, out)
+		if err != nil {
+			log.Println(err)
 		}
 	}
 }
@@ -74,4 +73,27 @@ func showRunningConf(w *http.ResponseWriter) {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func sortOutput(state *map[string]upsoperator.UPSCurrent, max int) string {
+	tmp := ""
+	iter := 1
+	itsDone := false
+
+	for itsDone {
+
+		for _, value := range *state {
+			if value.Order == iter {
+				tmp += fmt.Sprintf("%v: %v\n", value.Pretty, value.Value)
+				log.Printf("%v: %v: %v", iter, value.Pretty, value.Value)
+				iter += 1
+			}
+		}
+
+		if iter > max {
+			itsDone = true
+		}
+	}
+
+	return tmp
 }

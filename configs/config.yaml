@@ -16,35 +16,50 @@ port: ""
 ## possible specific requirements (e.g. shorter description)
 ##
 ## "name" field is case-insensitive
+## set 0 in "order" to hide value
 cp_response:
   - name: "modelname"
     prettyName: "Model name"
+    order: 1
   - name: "firmwarenumber"
     prettyName: "Firmware number"
+    order: 2
   - name: "ratingvoltage"
     prettyName: "Rating voltage"
+    order: 3
   - name: "ratingpower"
     prettyName: "Rating power"
+    order: 4
   - name: "state"
     prettyName: "State"
+    order: 5
   - name: "powersupplyby"
     prettyName: "Power supply by"
+    order: 6
   - name: "utilityvoltage"
     prettyName: "Utility voltage"
+    order: 7
   - name: "outputvoltage"
     prettyName: "Output voltage"
+    order: 8
   - name: "batterycapacity"
     prettyName: "Battery capacity"
+    order: 9
   - name: "remainingruntime"
     prettyName: "Remaining runtime"
+    order: 10
   - name: "load"
     prettyName: "Load"
+    order: 11
   - name: "lineinteraction"
     prettyName: "Line interaction"
+    order: 12
   - name: "testresult"
     prettyName: "Test result"
+    order: 13
   - name: "lastpowerevent"
     prettyName: "Last power event"
+    order: 14
 ### end of the list of values
 
 # Actions (only for read_only: false)

@@ -25,6 +25,7 @@ type UPSConfig struct {
 type UPSResponseMap struct {
 	Name       string `yaml:"name"`
 	PrettyName string `yaml:"prettyName"`
+	Order      int    `yaml:"order"`
 }
 
 type Action struct {
