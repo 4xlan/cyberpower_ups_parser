@@ -41,11 +41,9 @@ type UPSState struct {
 	wg           *sync.WaitGroup
 	dataChan     chan map[string]UPSCurrent
 	lastState    string
-	maxOrder     int
 }
 
 type UPSCurrent struct {
 	Pretty string
 	Value  string
-	Order  int
 }
